@@ -200,11 +200,11 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
 
   const caseStudyData = {
     verisum: {
-      badge: "BIOMEDICAL AI PLATFORM",
+      badge: "PRESENT WORKING • BIOMEDICAL AI PLATFORM",
       title: "VeriSumm — Safety-First Biomedical Text Summarizer",
       content: `
         <div class="space-y-4">
-          <p><strong>Overview:</strong> VeriSumm is a safety-first clinical and biomedical text summarization platform. It generates accurate summaries from Electronic Health Records (EHRs), notes, and medical literature using pluggable LLMs.</p>
+          <p><strong>Overview:</strong> VeriSumm is an active, safety-first clinical and biomedical text summarization platform. It generates accurate summaries from Electronic Health Records (EHRs), notes, and medical literature using pluggable LLMs.</p>
 
           <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
             <div class="text-xs font-mono text-cyan-400 font-bold">FACTUAL ACCURACY & HALLUCINATION VERIFICATION</div>
@@ -254,11 +254,11 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
       `
     },
     fln: {
-      badge: "EDTECH AI PRODUCT",
+      badge: "WAITING FOR PR ACCEPTANCE • EDTECH AI PRODUCT",
       title: "FLN — Foundational Numeracy Learning System",
       content: `
         <div class="space-y-4">
-          <p><strong>Overview:</strong> An AI-powered educational product designed to help young children master foundational math concepts through interactive activities.</p>
+          <p><strong>Overview:</strong> An AI-powered educational product designed to help young children master foundational math concepts through interactive activities. Currently awaiting pull request acceptance for core system integration.</p>
           <div class="flex items-center gap-3 pt-2">
             <a href="https://github.com/kudimirohith-bit/fln" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-colors">
               GitHub Repository ↗
