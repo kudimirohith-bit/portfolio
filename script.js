@@ -417,18 +417,76 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
   // --- 8. CONTACT FORM HANDLER ---
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('form-name').value;
-      
-      formStatus.classList.remove('hidden', 'bg-red-950', 'text-red-400');
-      formStatus.classList.add('bg-emerald-950', 'text-emerald-400', 'border', 'border-emerald-800');
-      formStatus.innerHTML = `✓ Thank you, ${name}! Your message has been prepared for Rohith Kudimi. He will get back to you shortly at kudimirohith@gmail.com!`;
-      
-      contactForm.reset();
+
+      const name = document.getElementById('form-name').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const subject = document.getElementById('form-subject').value.trim() || `Portfolio Inquiry from ${name}`;
+      const message = document.getElementById('form-message').value.trim();
+
+      if (!name || !email || !message) {
+        formStatus.classList.remove('hidden', 'bg-emerald-950', 'text-emerald-400', 'border-emerald-800');
+        formStatus.classList.add('bg-red-950', 'text-red-400', 'border', 'border-red-800');
+        formStatus.innerHTML = `⚠️ Please fill in all required fields (Name, Email, and Message).`;
+        return;
+      }
+
+      // Display loading state on button
+      const originalBtnContent = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin w-4 h-4 text-slate-950 inline-block" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Sending message...</span>
+      `;
+
+      formStatus.classList.add('hidden');
+
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/kudimirohith@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            _subject: subject,
+            message: message,
+            _template: 'table',
+            _captcha: 'false'
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && (data.success === 'true' || data.success === true)) {
+          formStatus.classList.remove('hidden', 'bg-red-950', 'text-red-400', 'border-red-800');
+          formStatus.classList.add('bg-emerald-950', 'text-emerald-400', 'border', 'border-emerald-800');
+          formStatus.innerHTML = `✓ Thank you, ${name}! Your message has been sent directly to Rohith's email (kudimirohith@gmail.com).`;
+          contactForm.reset();
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        console.error('Direct email dispatch error:', err);
+        formStatus.classList.remove('hidden', 'bg-emerald-950', 'text-emerald-400', 'border-emerald-800');
+        formStatus.classList.add('bg-red-950', 'text-red-400', 'border', 'border-red-800');
+        formStatus.innerHTML = `⚠️ Failed to send message directly from browser. Please email directly to <a href="mailto:kudimirohith@gmail.com" class="underline">kudimirohith@gmail.com</a>.`;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+      }
     });
   }
-
 });
+
+
+
