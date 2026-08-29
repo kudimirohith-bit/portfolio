@@ -19,7 +19,7 @@ export default function Navbar({ onOpenResume }) {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-slate-950/70 border-b border-slate-800/80 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
+
         {/* Brand Logo */}
         <NavLink
           to="/"
@@ -27,15 +27,15 @@ export default function Navbar({ onOpenResume }) {
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
             <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center font-mono font-bold text-cyan-400 text-sm">
-              RK
+              KR
             </div>
           </div>
           <div className="flex flex-col">
             <span className="font-outfit font-extrabold text-slate-100 tracking-tight text-base group-hover:text-cyan-400 transition-colors">
-              ROHITH.OS
+              KUDIMI ROHITH
             </span>
             <span className="text-[10px] font-mono text-cyan-400/80 uppercase tracking-wider">
-              AI & Backend
+              AI & Backend Engineering Intern
             </span>
           </div>
         </NavLink>
@@ -49,10 +49,9 @@ export default function Navbar({ onOpenResume }) {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `px-4 py-2 text-xs font-semibold rounded-full transition-all duration-200 ${
-                    isActive
-                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-400/40 shadow-sm shadow-cyan-500/20'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  `px-4 py-2 text-xs font-semibold rounded-full transition-all duration-200 ${isActive
+                    ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-400/40 shadow-sm shadow-cyan-500/20'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                   }`
                 }
               >
@@ -94,10 +93,9 @@ export default function Navbar({ onOpenResume }) {
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
               className={({ isActive }) =>
-                `block py-2.5 px-4 text-sm font-semibold rounded-xl transition-colors ${
-                  isActive
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
-                    : 'text-slate-300 hover:bg-slate-900'
+                `block py-2.5 px-4 text-sm font-semibold rounded-xl transition-colors ${isActive
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+                  : 'text-slate-300 hover:bg-slate-900'
                 }`
               }
             >
