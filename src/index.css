@@ -210,3 +210,46 @@ code, pre, .font-mono {
   width: 100%;
   min-height: calc(100vh - 160px);
 }
+
+/* --- PRINT STYLES FOR RESUME --- */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  
+  nav, footer, button, #bg-still-image, #bg-dark-overlay, .no-print {
+    display: none !important;
+  }
+
+  .fixed.inset-0 {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .bg-slate-900, .bg-slate-950 {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #0f172a !important;
+  }
+
+  #printable-resume {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  #printable-resume * {
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  #printable-resume .print-accent {
+    color: #0284c7 !important;
+  }
+}

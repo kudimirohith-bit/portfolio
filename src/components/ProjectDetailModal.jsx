@@ -90,7 +90,7 @@ const PROJECT_DETAILS = {
       "Multithreaded client session management.",
       "Robust TCP socket error handling and broadcast messaging."
     ],
-    github: "https://github.com/kudimirohith-bit/Simple-Chat-Server"
+    github: "https://github.com/kudimirohith-bit/Simple_ChatServer"
   }
 };
 
@@ -102,7 +102,7 @@ export default function ProjectDetailModal({ projectKey, onClose }) {
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
       <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-        
+
         {/* Header Bar */}
         <div className="flex items-start justify-between border-b border-slate-800 pb-4">
           <div className="space-y-1.5">
