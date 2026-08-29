@@ -75,7 +75,7 @@ export default function About() {
             </li>
             <li className="flex items-center justify-between p-3 rounded-2xl bg-slate-950/50 border border-slate-800/50">
               <span className="text-slate-400 font-mono text-[11px]">Academic GPA</span>
-              <span className="text-emerald-400 font-bold text-[11px] font-mono">8.56 / 10.0</span>
+              <span className="text-emerald-400 font-bold text-[11px] font-mono">8.57 / 10.0</span>
             </li>
           </ul>
         </div>

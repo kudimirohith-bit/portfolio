@@ -69,7 +69,7 @@ export default function ResumeModal({ isOpen, onClose }) {
               </div>
               <div className="text-right">
                 <div className="text-slate-300 font-mono">Chennai, Tamil Nadu</div>
-                <div className="text-cyan-300 font-bold">CGPA: 8.56 / 10</div>
+                <div className="text-cyan-300 font-bold">CGPA: 8.57 / 10</div>
               </div>
             </div>
           </div>

@@ -363,7 +363,7 @@ Databases & Cloud: <span class="text-amber-300 font-bold">MongoDB, Mongoose, Goo
     education: `Degree: <span class="text-cyan-300 font-bold">B.Tech Computer Science & Engineering (AI & Robotics)</span>
 Institution: <span class="text-indigo-300 font-bold">Vellore Institute of Technology (VIT)</span>
 Duration: <span class="text-slate-300 font-mono">2024 – 2028</span>
-CGPA: <span class="text-emerald-300 font-bold">8.56 / 10.0</span>`,
+CGPA: <span class="text-emerald-300 font-bold">8.57 / 10.0</span>`,
 
     certifications: `• <span class="text-cyan-300 font-bold">The Basics of Google Cloud Compute</span> (Virtual Machines, Web Servers, Persistent Disk)
 • <span class="text-indigo-300 font-bold">Spoken Tutorial Project, IIT Bombay</span> (C, C++, Python)`,
@@ -576,7 +576,7 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     },
     {
       keywords: ['vit', 'chennai', 'cgpa', 'education', 'gpa'],
-      answer: "Rohith is pursuing B.Tech in CSE (AI & Robotics) at VIT Chennai with an impressive CGPA of 8.56 / 10."
+      answer: "Rohith is pursuing B.Tech in CSE (AI & Robotics) at VIT Chennai with an impressive CGPA of 8.57 / 10."
     },
     {
       keywords: ['skill', 'stack', 'cpp', 'python', 'javascript', 'node', 'react'],

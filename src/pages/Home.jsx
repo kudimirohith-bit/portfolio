@@ -35,7 +35,7 @@ export default function Home() {
               <div className="text-[10px] font-mono text-slate-400">Backend AI Intern</div>
             </div>
             <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-sm hover:border-indigo-500/40 transition-colors">
-              <div className="font-outfit text-xl font-black text-indigo-400">8.56</div>
+              <div className="font-outfit text-xl font-black text-indigo-400">8.57</div>
               <div className="text-[10px] font-mono text-slate-400">CGPA @ VIT</div>
             </div>
             <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800/80 backdrop-blur-sm hover:border-emerald-500/40 transition-colors">

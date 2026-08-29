@@ -20,7 +20,7 @@ const AI_KNOWLEDGE = [
   },
   {
     keywords: ['vit', 'chennai', 'cgpa', 'education', 'gpa'],
-    answer: "Rohith is pursuing B.Tech in CSE (AI & Robotics) at VIT Chennai with an impressive CGPA of 8.56 / 10."
+    answer: "Rohith is pursuing B.Tech in CSE (AI & Robotics) at VIT Chennai with an impressive CGPA of 8.57 / 10."
   },
   {
     keywords: ['skill', 'stack', 'cpp', 'python', 'javascript', 'node', 'react'],
