@@ -1,13 +1,16 @@
-/* Tailwind-like base utility styles combined with custom CSS animations & glassmorphism */
+/* Advanced UI/UX Design System with Cyber Glassmorphic Aesthetics, 
+   Sliding Transparent Grid Backgrounds, 3D Spatial Slide Section Transitions, 
+   and Interactive Navigation Pill Slider */
 
 @layer base {
   :root {
     --bg-dark: #030712;
-    --card-bg: rgba(15, 23, 42, 0.7);
-    --border-color: rgba(30, 41, 59, 0.8);
+    --card-bg: rgba(15, 23, 42, 0.65);
+    --border-color: rgba(255, 255, 255, 0.08);
     --cyan-accent: #06b6d4;
     --indigo-accent: #6366f1;
     --purple-accent: #a855f7;
+    --emerald-accent: #10b981;
   }
 }
 
@@ -21,6 +24,8 @@ body {
   color: #f3f4f6;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  position: relative;
+  perspective: 1400px;
 }
 
 h1, h2, h3, h4, .font-outfit {
@@ -44,33 +49,203 @@ code, pre, .font-mono {
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
   border-radius: 4px;
+  border: 1px solid rgba(6, 182, 212, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #06b6d4;
 }
 
-/* Custom Animations */
-@keyframes pulseSlow {
-  0%, 100% { opacity: 0.15; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.08); }
+/* --- STILL BACKGROUND IMAGE & SLIDING TRANSPARENT GRID OVERLAY --- */
+#bg-still-image {
+  background-image: url('bg-still.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  opacity: 0.55;
+  filter: contrast(1.1) brightness(1.0);
 }
 
-.animate-pulse-slow {
-  animation: pulseSlow 8s ease-in-out infinite;
+#bg-dark-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 50% 30%, rgba(3, 7, 18, 0.4) 0%, rgba(3, 7, 18, 0.95) 85%);
+  pointer-events: none;
 }
 
-/* Nav Link Styling */
-.nav-link {
-  color: #94a3b8;
+.sliding-grid-overlay,
+.sliding-grid-overlay-secondary {
+  display: none;
 }
 
-.nav-link:hover, .nav-link.active {
+@keyframes gridSlide {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(60px, 60px);
+  }
+}
+
+@keyframes gridSlideReverse {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-120px, -120px) rotate(0.5deg);
+  }
+}
+
+/* Laser Energy Flash Line on Section Switch */
+#tab-flash-bar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #06b6d4, #6366f1, #a855f7, transparent);
+  box-shadow: 0 0 15px #06b6d4, 0 0 8px #6366f1;
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+#tab-flash-bar.flashing {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* 3D SPATIAL SECTION TRANSITIONS */
+section {
+  position: relative;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.65s ease;
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
+}
+
+section.section-slide-out-up {
+  opacity: 0;
+  transform: perspective(1200px) translate3d(0, -60px, -160px) rotateX(4deg);
+  filter: blur(8px);
+}
+
+section.section-slide-out-down {
+  opacity: 0;
+  transform: perspective(1200px) translate3d(0, 60px, -160px) rotateX(-4deg);
+  filter: blur(8px);
+}
+
+section.section-slide-in-down {
+  animation: spatialSlideInDown 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+section.section-slide-in-up {
+  animation: spatialSlideInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes spatialSlideInDown {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) translate3d(0, 65px, -120px) rotateX(-4deg);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 0.85;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) translate3d(0, 0, 0) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+@keyframes spatialSlideInUp {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) translate3d(0, -65px, -120px) rotateX(4deg);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 0.85;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) translate3d(0, 0, 0) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Floating Vertical Slide Indicator Dots */
+.slide-indicator-container {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .slide-indicator-container {
+    display: none;
+  }
+}
+
+.slide-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.slide-dot:hover, .slide-dot.active {
+  background: #06b6d4;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.9), 0 0 5px rgba(6, 182, 212, 0.5);
+  transform: scale(1.4);
+}
+
+.slide-dot-tooltip {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(6, 182, 212, 0.4);
   color: #38bdf8;
-  background-color: rgba(15, 23, 42, 0.9);
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
-/* Custom Glassmorphism Box */
+.slide-dot:hover .slide-dot-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-4px);
+}
+
+/* Glassmorphic Card Styling */
 .glass-card {
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(16px);
@@ -78,14 +253,137 @@ code, pre, .font-mono {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Project Card Hover Animation */
+/* --- NAV BAR SLIDING ACTIVE INDICATOR & TAB ANIMATIONS --- */
+.nav-container {
+  position: relative;
+}
+
+.nav-link {
+  position: relative;
+  z-index: 10;
+  transition: color 0.25s ease;
+  color: #94a3b8;
+}
+
+.nav-link.active, .nav-link:hover {
+  color: #38bdf8;
+}
+
+#nav-active-pill {
+  position: absolute;
+  top: 6px;
+  height: calc(100% - 12px);
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  border-radius: 9999px;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* --- PROJECT GRID & CARD ANIMATIONS --- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .project-card {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease,
+              opacity 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  left: 100%;
 }
 
 .project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.15);
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 20px 45px -15px rgba(6, 182, 212, 0.25), 0 0 15px rgba(6, 182, 212, 0.1);
+}
+
+/* Staggered entry animation on tab filter switch */
+.project-card.filter-animating {
+  animation: cardFadeScaleIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cardFadeScaleIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Filter Tab Buttons */
+.project-filter {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-filter.active {
+  background: linear-gradient(135deg, #06b6d4 0%, #0d9488 100%);
+  color: #030712;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.35);
+}
+
+/* Section Fade & Reveal Initial Observer State */
+.section-hidden {
+  opacity: 0;
+  transform: translateY(35px) scale(0.97);
+}
+
+.section-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Glow Pulses */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+  }
+}
+
+.glow-pulse {
+  animation: pulseGlow 3s infinite ease-in-out;
 }
 
 /* Printable Resume Styling Override */

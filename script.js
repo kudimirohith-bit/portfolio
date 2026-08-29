@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 1. MATRIX / CYBER BACKGROUND CANVAS ---
+  // --- 1. SLIDING CANVAS GRID & MATRIX INTERACTION LAYER ---
   const canvas = document.getElementById('bg-canvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -12,49 +12,230 @@ document.addEventListener('DOMContentLoaded', () => {
       height = canvas.height = window.innerHeight;
     });
 
-    const characters = '01ROHITHKUDIMIAI01010101MERNVIT';
-    const fontSize = 12;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array(columns).fill(1);
+    let mouseX = width / 2;
+    let mouseY = height / 2;
 
-    function drawCanvas() {
-      ctx.fillStyle = 'rgba(3, 7, 18, 0.08)';
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Grid Particle Nodes
+    const gridSize = 60;
+    let offset = 0;
+
+    function drawCanvasGrid() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Subtle scanning grid lines
+      offset = (offset + 0.3) % gridSize;
+
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.08)';
+
+      for (let x = offset; x < width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+
+      for (let y = offset; y < height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // Mouse interactive glow node
+      const radialGradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 250);
+      radialGradient.addColorStop(0, 'rgba(6, 182, 212, 0.12)');
+      radialGradient.addColorStop(0.5, 'rgba(99, 102, 241, 0.04)');
+      radialGradient.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = radialGradient;
       ctx.fillRect(0, 0, width, height);
 
-      ctx.fillStyle = '#06b6d4';
-      ctx.font = `${fontSize}px monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = characters.charAt(Math.floor(Math.random() * characters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
+      requestAnimationFrame(drawCanvasGrid);
     }
 
-    setInterval(drawCanvas, 50);
+    drawCanvasGrid();
   }
 
-  // --- 2. NAVIGATION & ACTIVE HIGHLIGHTING ---
+  // --- 2. DESKTOP NAVIGATION & SLIDING ACTIVE PILL INDICATOR ---
   const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section');
+  const sections = Array.from(document.querySelectorAll('section'));
+  const navPill = document.getElementById('nav-active-pill');
+  const tabFlashBar = document.getElementById('tab-flash-bar');
+  const slidingGrid = document.getElementById('sliding-grid');
+  const slideDots = document.querySelectorAll('.slide-dot');
 
+  let isTransitioning = false;
+
+  function updateNavPill(activeLink) {
+    if (!navPill || !activeLink) return;
+    const parentRect = activeLink.parentElement.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    const left = linkRect.left - parentRect.left;
+    const top = linkRect.top - parentRect.top;
+    const width = linkRect.width;
+    const height = linkRect.height;
+
+    navPill.style.left = `${left}px`;
+    navPill.style.top = `${top}px`;
+    navPill.style.width = `${width}px`;
+    navPill.style.height = `${height}px`;
+  }
+
+  // Initial nav pill placement
+  const initialActive = document.querySelector('.nav-link.active') || navLinks[0];
+  setTimeout(() => updateNavPill(initialActive), 100);
+  window.addEventListener('resize', () => {
+    const currentActive = document.querySelector('.nav-link.active');
+    updateNavPill(currentActive);
+  });
+
+  // --- 3. 3D SPATIAL SLIDE SECTION TRANSITION ENGINE ---
+  function goToSection(targetId) {
+    const targetSection = document.getElementById(targetId);
+    if (!targetSection || isTransitioning) return;
+
+    isTransitioning = true;
+
+    // Find current active section index
+    const currentIndex = sections.findIndex(sec => {
+      const rect = sec.getBoundingClientRect();
+      return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+    });
+    const targetIndex = sections.findIndex(sec => sec.id === targetId);
+
+    const currentSection = sections[currentIndex >= 0 ? currentIndex : 0];
+
+    // Determine direction
+    const isGoingDown = targetIndex >= currentIndex;
+
+    // 1. Trigger Laser Flash Bar & Grid Reaction
+    if (tabFlashBar) {
+      tabFlashBar.classList.add('flashing');
+      setTimeout(() => tabFlashBar.classList.remove('flashing'), 450);
+    }
+    if (slidingGrid) {
+      slidingGrid.classList.add('warp-speed');
+      setTimeout(() => slidingGrid.classList.remove('warp-speed'), 600);
+    }
+
+    // 2. Apply 3D Outgoing & Incoming Animations
+    if (currentSection && currentSection !== targetSection) {
+      currentSection.classList.add(isGoingDown ? 'section-slide-out-up' : 'section-slide-out-down');
+    }
+
+    targetSection.classList.remove('section-hidden', 'section-slide-out-up', 'section-slide-out-down');
+    targetSection.classList.add(isGoingDown ? 'section-slide-in-down' : 'section-slide-in-up');
+
+    // 3. Scroll position shift
+    const targetTop = targetSection.offsetTop - 70;
+    window.scrollTo({
+      top: targetTop,
+      behavior: 'smooth'
+    });
+
+    // Update Nav active link & pill
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('data-target') === targetId || link.getAttribute('href') === `#${targetId}`) {
+        link.classList.add('active');
+        updateNavPill(link);
+      }
+    });
+
+    // Update Slide Indicator Dots
+    slideDots.forEach(dot => {
+      dot.classList.remove('active');
+      if (dot.getAttribute('data-section') === targetId) {
+        dot.classList.add('active');
+      }
+    });
+
+    // 4. Reset 3D Spatial Classes after animation completes
+    setTimeout(() => {
+      sections.forEach(sec => {
+        sec.classList.remove('section-slide-out-up', 'section-slide-out-down', 'section-slide-in-down', 'section-slide-in-up');
+      });
+      isTransitioning = false;
+    }, 650);
+  }
+
+  // Wire all `.slide-nav-trigger` elements
+  document.querySelectorAll('.slide-nav-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = trigger.getAttribute('data-target') || trigger.getAttribute('href')?.replace('#', '');
+      if (targetId) {
+        goToSection(targetId);
+      }
+    });
+  });
+
+  // Wire Slide Indicator Dots
+  slideDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const targetId = dot.getAttribute('data-section');
+      if (targetId) {
+        goToSection(targetId);
+      }
+    });
+  });
+
+  // Keyboard Slide Navigation (ArrowDown / ArrowUp / PageDown / PageUp)
+  window.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+    let currentIndex = sections.findIndex(sec => {
+      const rect = sec.getBoundingClientRect();
+      return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+    });
+    if (currentIndex === -1) currentIndex = 0;
+
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      if (currentIndex < sections.length - 1) {
+        e.preventDefault();
+        goToSection(sections[currentIndex + 1].id);
+      }
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      if (currentIndex > 0) {
+        e.preventDefault();
+        goToSection(sections[currentIndex - 1].id);
+      }
+    }
+  });
+
+  // Update nav link active state on scroll
   window.addEventListener('scroll', () => {
+    if (isTransitioning) return;
     let current = '';
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
+      const sectionTop = section.offsetTop - 150;
       if (window.scrollY >= sectionTop) {
         current = section.getAttribute('id');
       }
     });
 
     navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
+      const target = link.getAttribute('data-target') || link.getAttribute('href')?.replace('#', '');
+      if (target === current) {
+        if (!link.classList.contains('active')) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          updateNavPill(link);
+        }
+      }
+    });
+
+    slideDots.forEach(dot => {
+      if (dot.getAttribute('data-section') === current) {
+        slideDots.forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
       }
     });
   });
@@ -71,7 +252,79 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 3. INTERACTIVE TERMINAL EMULATOR ---
+  // --- 4. SECTION FADE & REVEAL OBSERVER ---
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('section-visible');
+        entry.target.classList.remove('section-hidden');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  sections.forEach(sec => {
+    sectionObserver.observe(sec);
+  });
+
+  // --- 5. PROJECT CARD 3D TILT HOVER EFFECT ---
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -7;
+      const rotateY = ((x - centerX) / centerX) * 7;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px) scale3d(1.01, 1.01, 1.01)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)';
+    });
+  });
+
+  // --- 6. PROJECT FILTER TAB SWITCHING WITH SMOOTH GRID ANIMATIONS ---
+  const filterBtns = document.querySelectorAll('.project-filter');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active tab buttons
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-gradient-to-r', 'from-cyan-500', 'to-teal-500', 'text-slate-950');
+        b.classList.add('bg-slate-900/80', 'text-slate-300');
+      });
+
+      btn.classList.add('active');
+      btn.classList.remove('bg-slate-900/80', 'text-slate-300');
+
+      const filter = btn.getAttribute('data-filter');
+
+      // Staggered card animation filter transition
+      projectCards.forEach((card, index) => {
+        const category = card.getAttribute('data-category');
+        const matches = filter === 'all' || category.includes(filter);
+
+        card.classList.remove('filter-animating');
+
+        if (matches) {
+          card.style.display = 'flex';
+          setTimeout(() => {
+            card.classList.add('filter-animating');
+          }, index * 40);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // --- 7. INTERACTIVE TERMINAL EMULATOR ---
   const terminalForm = document.getElementById('terminal-form');
   const terminalInput = document.getElementById('terminal-input');
   const terminalOutput = document.getElementById('terminal-output');
@@ -80,30 +333,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const commands = {
     help: `Available commands:
-• <span class="text-cyan-400 font-bold">skills</span>: Top technical skills, Web Servers & Cloud
+• <span class="text-cyan-400 font-bold">skills</span>: Technical skills, Web Servers & Cloud
 • <span class="text-indigo-400 font-bold">projects</span>: All GitHub repos (VeriSumm, SmartGap, FlyRank, etc.)
 • <span class="text-emerald-400 font-bold">experience</span>: FlyRank AI & Vicharanashala IIT Ropar internships
 • <span class="text-purple-400 font-bold">education</span>: VIT Chennai CSE (AI & Robotics) (2024-2028)
 • <span class="text-amber-400 font-bold">certifications</span>: Google Cloud Compute & IIT Bombay
 • <span class="text-sky-400 font-bold">contact</span>: Email, LinkedIn, Location & GitHub
 • <span class="text-slate-400 font-bold">clear</span>: Clear console`,
-    
+
     skills: `Top Skills: <span class="text-cyan-300 font-bold">Web Servers, Virtual Machines, Persistent Disk</span>
 Languages: <span class="text-cyan-300 font-bold">C++, Python, Java, JavaScript (ES6+)</span>
 Frameworks: <span class="text-indigo-300 font-bold">Node.js, Express.js, React.js, MERN Stack</span>
-AI & LLMs: <span class="text-purple-300 font-bold">RAG Systems, Ollama (Phi-3 Local LLMs), API Contracts</span>
+Specialties: <span class="text-purple-300 font-bold">API Contracts, Backend Systems, Basic Robotics</span>
 Databases & Cloud: <span class="text-amber-300 font-bold">MongoDB, Mongoose, Google Cloud Compute, Git</span>`,
 
     projects: `1. <span class="text-cyan-400 font-bold">VeriSumm</span> — Safety-first Biomedical Text Summarization & Hallucination Verifier
-2. <span class="text-indigo-400 font-bold">FlyRank AI Systems</span> — Server Infrastructure, API Contracts & RAG Workflows
-3. <span class="text-purple-400 font-bold">SmartGap AI</span> — Learning Gap Detector powered by Local Ollama (Phi-3)
+2. <span class="text-indigo-400 font-bold">FlyRank AI Systems</span> — Server Infrastructure & API Contracts
+3. <span class="text-purple-400 font-bold">SmartGap AI</span> — CS Subject Learning Gap Diagnostic System
 4. <span class="text-emerald-400 font-bold">FLN Learning</span> — AI Foundational Numeracy Product
 5. <span class="text-amber-400 font-bold">MarauderOS</span> — Emergency Coordination Incident System
-6. <span class="text-sky-400 font-bold">Expense Tracker</span> — Daily Income & Expenditure Tracking Web App
+6. <span class="text-sky-400 font-bold">Expense Tracker</span> — Financial Tracking Web App
 7. <span class="text-pink-400 font-bold">Simple Chat Server</span> — Multithreaded Java Network Socket Chat Server`,
 
     experience: `1. <span class="text-cyan-300 font-bold">FlyRank AI</span> — Backend AI Developer Intern (July 2026 - Present)
-   • Building scalable server-side infrastructure, API contracts, RAG systems & LLM output workflows.
+   • Building scalable server-side infrastructure, API contracts & backend data pipelines.
 2. <span class="text-indigo-300 font-bold">Vicharanashala (VLED, IIT Ropar)</span> — Summer Intern (May 2026 - Present)
    • Hands-on AI educational technology development, Node.js services & real-world software practices.`,
 
@@ -128,7 +381,6 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     const trimmed = cmdText.trim().toLowerCase();
     if (!trimmed) return;
 
-    // Print Prompt Command Line
     const cmdLine = document.createElement('div');
     cmdLine.innerHTML = `<span class="text-emerald-400 font-bold">rohith@dev:~$</span> <span class="text-cyan-300">${cmdText}</span>`;
     terminalOutput.appendChild(cmdLine);
@@ -166,32 +418,7 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     });
   });
 
-  // --- 4. PROJECT FILTERING ---
-  const filterBtns = document.querySelectorAll('.project-filter');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => {
-        b.classList.remove('active', 'bg-cyan-500', 'text-slate-950');
-        b.classList.add('bg-slate-900', 'text-slate-300');
-      });
-      btn.classList.add('active', 'bg-cyan-500', 'text-slate-950');
-      btn.classList.remove('bg-slate-900', 'text-slate-300');
-
-      const filter = btn.getAttribute('data-filter');
-      projectCards.forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (filter === 'all' || cat.includes(filter)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  // --- 5. CASE STUDY MODAL ---
+  // --- 8. CASE STUDY MODAL DIALOG ---
   const csModal = document.getElementById('casestudy-modal');
   const csTitle = document.getElementById('cs-title');
   const csBadge = document.getElementById('cs-badge');
@@ -204,7 +431,7 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
       title: "VeriSumm — Safety-First Biomedical Text Summarizer",
       content: `
         <div class="space-y-4">
-          <p><strong>Overview:</strong> VeriSumm is an active, safety-first clinical and biomedical text summarization platform. It generates accurate summaries from Electronic Health Records (EHRs), notes, and medical literature using pluggable LLMs.</p>
+          <p><strong>Overview:</strong> VeriSumm is an active, safety-first clinical and biomedical text summarization platform. It generates accurate summaries from Electronic Health Records (EHRs), clinical notes, and medical literature using pluggable LLMs.</p>
 
           <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
             <div class="text-xs font-mono text-cyan-400 font-bold">FACTUAL ACCURACY & HALLUCINATION VERIFICATION</div>
@@ -219,34 +446,20 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
         </div>
       `
     },
-    flyrank: {
-      badge: "BACKEND AI & RAG INFRASTRUCTURE",
-      title: "FlyRank AI — RAG Systems & Server Infrastructure",
-      content: `
-        <div class="space-y-4">
-          <p><strong>Overview:</strong> Built during internship at FlyRank AI to provide scalable server-side infrastructure for AI-driven workflows.</p>
-
-          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-            <div class="text-xs font-mono text-indigo-400 font-bold">RAG ARCHITECTURE & API CONTRACTS</div>
-            <p class="text-xs text-slate-300">Engineered Retrieval-Augmented Generation (RAG) pipelines, strict API schemas, and structured JSON output parsers for modern LLM services.</p>
-          </div>
-        </div>
-      `
-    },
     smartgap: {
-      badge: "AI & OLLAMA CASE STUDY",
+      badge: "MERN DIAGNOSTIC CASE STUDY",
       title: "SmartGap AI — CS Learning Gap Detector",
       content: `
         <div class="space-y-4">
           <p><strong>Overview:</strong> SmartGap AI automates learning gap diagnosis across 5 fundamental CS subjects, eliminating manual evaluation.</p>
 
           <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-            <div class="text-xs font-mono text-cyan-400 font-bold">OLLAMA PHI-3 LOCAL LLM DEPLOYMENT</div>
-            <p class="text-xs text-slate-300">Runs a local Phi-3 model via Ollama alongside a Node.js REST API server for zero-cloud latency remediation quiz generation.</p>
+            <div class="text-xs font-mono text-indigo-400 font-bold">AUTOMATED DIAGNOSTIC EVALUATION PIPELINE</div>
+            <p class="text-xs text-slate-300">Automated assessment matrix with Node.js REST API server for zero-latency remediation analytics.</p>
           </div>
 
           <div class="flex items-center gap-3 pt-2">
-            <a href="https://github.com/kudimirohith-bit/smartgap_ai" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs hover:bg-cyan-400 transition-colors">
+            <a href="https://github.com/kudimirohith-bit/smartgap_ai" target="_blank" class="px-4 py-2 rounded-xl bg-indigo-500 text-slate-950 font-bold text-xs hover:bg-indigo-400 transition-colors">
               GitHub Repository ↗
             </a>
           </div>
@@ -299,7 +512,7 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     closeCsBtn.addEventListener('click', () => csModal.classList.add('hidden'));
   }
 
-  // --- 6. RESUME MODAL & PRINTING ---
+  // --- 9. RESUME MODAL & PRINTING ---
   const resumeModal = document.getElementById('resume-modal');
   const resumeBtn = document.getElementById('resume-btn');
   const mobileResumeBtn = document.getElementById('mobile-resume-btn');
@@ -318,13 +531,12 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     });
   }
 
-  // Close Modals when clicking backdrop
   window.addEventListener('click', (e) => {
     if (e.target === csModal) csModal.classList.add('hidden');
     if (e.target === resumeModal) resumeModal.classList.add('hidden');
   });
 
-  // --- 7. ROHITH AI ASSISTANT CHATBOT ---
+  // --- 10. ROHITH AI ASSISTANT CHATBOT ---
   const aiChatBtn = document.getElementById('ai-chat-btn');
   const aiChatWindow = document.getElementById('ai-chat-window');
   const closeAiChat = document.getElementById('close-ai-chat');
@@ -347,23 +559,31 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
 
   const aiKnowledge = [
     {
-      keywords: ['smartgap', 'gap', 'ollama', 'phi-3', 'cs'],
-      answer: "SmartGap AI is Rohith's flagship project! It automatically detects student learning gaps across 5 CS subjects using a locally-run Phi-3 LLM via Ollama in Node.js/Express.js."
+      keywords: ['verisumm', 'verisum', 'biomedical', 'clinical'],
+      answer: "VeriSumm is Rohith's active biomedical text summarization project! It generates clinical summaries from EHRs while verifying factual accuracy and flagging hallucinations."
     },
     {
-      keywords: ['iit', 'ropar', 'vled', 'internship', 'experience', 'work'],
-      answer: "Rohith is currently an AI & Education Technology Intern at Vicharanashala Lab for Education Design (VLED), IIT Ropar. He builds Node.js backend services and MongoDB models!"
+      keywords: ['smartgap', 'gap', 'diagnostic', 'cs'],
+      answer: "SmartGap AI detects student learning gaps across 5 CS subjects using automated diagnostic pipelines in Node.js/Express.js."
     },
     {
-      keywords: ['vit', 'chennai', 'cgpa', 'education', 'college', 'gpa'],
+      keywords: ['flyrank', 'internship', 'experience', 'work'],
+      answer: "Rohith is currently a Backend AI Developer Intern at FlyRank AI, building scalable server-side infrastructure and clean API contracts."
+    },
+    {
+      keywords: ['robotics', 'robot', 'hardware', 'embedded'],
+      answer: "Rohith is deeply interested in Basic Robotics, micro-controller systems, sensor integration, and hardware-software interaction alongside his CSE (AI & Robotics) degree at VIT Chennai."
+    },
+    {
+      keywords: ['vit', 'chennai', 'cgpa', 'education', 'gpa'],
       answer: "Rohith is pursuing B.Tech in CSE (AI & Robotics) at VIT Chennai with an impressive CGPA of 8.56 / 10."
     },
     {
       keywords: ['skill', 'stack', 'cpp', 'python', 'javascript', 'node', 'react'],
-      answer: "Rohith's stack includes C++, Python, JavaScript (ES6+), React.js, Node.js, Express.js, MongoDB, Ollama, Linux, and Git."
+      answer: "Rohith's stack includes C++, Python, JavaScript (ES6+), React.js, Node.js, Express.js, MongoDB, Basic Robotics & IoT, Linux, and Git."
     },
     {
-      keywords: ['contact', 'email', 'phone', 'reach', 'hire'],
+      keywords: ['contact', 'email', 'phone', 'reach'],
       answer: "You can email Rohith at kudimirohith@gmail.com or call him at +91 6301699119."
     }
   ];
@@ -371,15 +591,13 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
   function sendChatMessage(text) {
     if (!text.trim()) return;
 
-    // User Message Bubble
     const userMsg = document.createElement('div');
     userMsg.className = 'p-2.5 rounded-2xl bg-cyan-950 border border-cyan-800/60 text-cyan-200 text-right font-sans';
     userMsg.textContent = text;
     chatMessages.appendChild(userMsg);
 
-    // AI Response Engine
     const lower = text.toLowerCase();
-    let foundAnswer = "Rohith is a dedicated Backend & AI Engineer with expertise in Node.js, Express, React, Python, C++, and Ollama local LLMs. Feel free to ask about his IIT Ropar internship or SmartGap AI project!";
+    let foundAnswer = "Rohith is a dedicated Backend & AI Engineer with a strong interest in Basic Robotics, Node.js, Express, React, Python, and C++. Ask me about VeriSumm, FlyRank AI, or SmartGap AI!";
 
     for (let item of aiKnowledge) {
       if (item.keywords.some(k => lower.includes(k))) {
@@ -394,7 +612,7 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
       aiMsg.textContent = foundAnswer;
       chatMessages.appendChild(aiMsg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-    }, 400);
+    }, 350);
 
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
@@ -414,7 +632,7 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     });
   });
 
-  // --- 8. CONTACT FORM HANDLER ---
+  // --- 11. CONTACT FORM DISPATCH ---
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
   const submitBtn = document.getElementById('submit-btn');
@@ -435,7 +653,6 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
         return;
       }
 
-      // Display loading state on button
       const originalBtnContent = submitBtn.innerHTML;
       submitBtn.disabled = true;
       submitBtn.innerHTML = `
@@ -487,6 +704,3 @@ Location: <span class="text-slate-300">Chittoor, Andhra Pradesh, India</span>`,
     });
   }
 });
-
-
-
