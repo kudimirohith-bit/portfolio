@@ -52,25 +52,25 @@ code, pre, .font-mono {
   background: #06b6d4;
 }
 
-/* --- STILL BACKGROUND IMAGE & SLIDING TRANSPARENT GRID OVERLAY --- */
+/* --- STILL BACKGROUND IMAGE --- */
 #bg-still-image {
   background-image: url('/bg-still.png');
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: fixed;
   inset: 0;
   z-index: -3;
-  opacity: 0.25;
-  filter: contrast(1.1) brightness(0.9);
+  opacity: 0.55;
+  filter: contrast(1.15) brightness(1.05);
 }
 
 #bg-dark-overlay {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: radial-gradient(circle at 50% 30%, rgba(3, 7, 18, 0.4) 0%, rgba(3, 7, 18, 0.95) 85%);
+  background: radial-gradient(circle at 50% 40%, rgba(3, 7, 18, 0.2) 0%, rgba(3, 7, 18, 0.8) 85%);
   pointer-events: none;
 }
 
