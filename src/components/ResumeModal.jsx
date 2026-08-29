@@ -28,20 +28,22 @@ export default function ResumeModal({ isOpen, onClose }) {
             @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap');
             
             * { box-sizing: border-box; margin: 0; padding: 0; }
-            body {
-              font-family: 'Inter', system-ui, -apple-system, sans-serif;
-              color: #0f172a;
+            html, body {
+              width: 100%;
+              height: 100%;
               background: #ffffff;
-              padding: 0 !important;
-              margin: 0 !important;
+              color: #0f172a;
+              font-family: 'Inter', system-ui, -apple-system, sans-serif;
+              font-size: 10.5px;
               line-height: 1.35;
               -webkit-print-color-adjust: exact !important;
               print-color-adjust: exact !important;
             }
+            body { padding: 12px; }
             .no-print { display: none !important; }
             
-            h1 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: #0284c7 !important; letter-spacing: -0.5px; margin-bottom: 2px; }
-            h2, h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11.5px; color: #0284c7 !important; letter-spacing: 0.04em; margin-bottom: 4px; margin-top: 10px; }
+            h1 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: #0284c7 !important; letter-spacing: -0.3px; margin-bottom: 2px; }
+            h2, h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11.5px; color: #0284c7 !important; letter-spacing: 0.04em; margin-bottom: 4px; margin-top: 8px; }
             
             .print-accent { color: #0284c7 !important; }
             .text-cyan-400, .text-cyan-300, .text-indigo-400, .text-indigo-300, .text-emerald-400, .text-amber-300 { color: #0369a1 !important; }
@@ -62,30 +64,32 @@ export default function ResumeModal({ isOpen, onClose }) {
             .flex-wrap { flex-wrap: wrap; }
             .items-center { align-items: center; }
             .justify-between { justify-content: space-between; }
-            .gap-1 { gap: 4px; }
-            .gap-1\\.5 { gap: 6px; }
+            .gap-1 { gap: 3px; }
+            .gap-1\\.5 { gap: 5px; }
             .gap-2 { gap: 6px; }
             .gap-3 { gap: 10px; }
             .space-y-1 > * + * { margin-top: 3px; }
             .space-y-1\\.5 > * + * { margin-top: 4px; }
             .space-y-2 > * + * { margin-top: 6px; }
-            .space-y-2\\.5 > * + * { margin-top: 8px; }
-            .space-y-3 > * + * { margin-top: 10px; }
-            .space-y-4 > * + * { margin-top: 12px; }
+            .space-y-2\\.5 > * + * { margin-top: 7px; }
+            .space-y-3 > * + * { margin-top: 8px; }
+            .space-y-3\\.5 > * + * { margin-top: 9px; }
+            .space-y-4 > * + * { margin-top: 10px; }
+            .space-y-6 > * + * { margin-top: 12px; }
             
             .grid { display: grid; }
             .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
             .grid-cols-2, .sm\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             
             .rounded-xl, .rounded-2xl, .rounded-lg { border-radius: 5px; }
-            .p-2\\.5, .p-3, .p-3\\.5 { padding: 8px 10px; }
-            .p-5, .p-6, .sm\\:p-9 { padding: 0; }
-            .pb-3, .pb-4, .pb-5 { padding-bottom: 8px; margin-bottom: 8px; }
-            .pt-1 { padding-top: 2px; }
-            .pt-2 { padding-top: 4px; }
+            .p-3, .p-3\\.5 { padding: 7px 9px; }
+            .p-6, .sm\\:p-9 { padding: 10px; }
+            .pb-5 { padding-bottom: 8px; margin-bottom: 8px; }
+            .pt-1 { padding-top: 3px; }
+            .pt-2 { padding-top: 5px; }
             .font-mono { font-family: 'Fira Code', monospace; font-size: 10px; }
-            .text-xs { font-size: 10.5px; }
-            .text-sm { font-size: 11.5px; }
+            .text-xs { font-size: 10px; }
+            .text-sm { font-size: 11px; }
             .text-\\[10px\\] { font-size: 9.5px; }
             .text-\\[11px\\] { font-size: 10px; }
             .font-bold { font-weight: 700; }
@@ -97,7 +101,7 @@ export default function ResumeModal({ isOpen, onClose }) {
             
             @page {
               size: A4 portrait;
-              margin: 6mm 10mm;
+              margin: 6mm 8mm;
             }
           </style>
         </head>
@@ -118,8 +122,8 @@ export default function ResumeModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-8 space-y-5 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 scrollbar-thin">
+    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-xl flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 space-y-4 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 scrollbar-thin">
         
         {/* Modal Controls Bar (Hidden during print) */}
         <div className="flex flex-wrap items-center justify-between border-b border-slate-800/80 pb-3 gap-3 no-print">
@@ -129,9 +133,9 @@ export default function ResumeModal({ isOpen, onClose }) {
             </div>
             <div>
               <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-cyan-950 text-cyan-400 border border-cyan-800/50 uppercase tracking-wider font-bold">
-                SINGLE-PAGE CV & RESUME
+                EXECUTIVE RESUME • 1-PAGE A4 FORMAT
               </span>
-              <h2 className="text-xl font-outfit font-bold text-slate-100 pt-0.5">
+              <h2 className="text-lg font-outfit font-bold text-slate-100 pt-0.5">
                 Rohith Kudimi — Curriculum Vitae
               </h2>
             </div>
@@ -141,10 +145,10 @@ export default function ResumeModal({ isOpen, onClose }) {
             <button
               onClick={handlePrint}
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-105"
-              title="Save as Single-Page PDF or Print Resume"
+              title="Save as 1-Page PDF or Print Resume"
             >
               <Download className="w-4 h-4 stroke-[2.5]" />
-              <span>Download PDF / Print</span>
+              <span>Download 1-Page PDF</span>
             </button>
             <button
               onClick={onClose}
@@ -156,10 +160,10 @@ export default function ResumeModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Printable Executive Resume Container */}
+        {/* Printable Executive Resume Container (Compact 1-Page Layout) */}
         <div
           id="printable-resume"
-          className="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 sm:p-7 space-y-4 text-slate-200 font-sans shadow-inner"
+          className="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-4 sm:p-6 space-y-3.5 text-slate-200 font-sans shadow-inner"
         >
           {/* Header Section */}
           <div className="border-b border-slate-800 pb-3 space-y-2">
@@ -168,7 +172,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 <h1 className="text-2xl sm:text-3xl font-outfit font-extrabold text-slate-100 tracking-tight print-accent">
                   ROHITH KUDIMI
                 </h1>
-                <p className="text-xs font-mono text-cyan-400 font-semibold pt-0.5 flex items-center gap-2">
+                <p className="text-xs sm:text-sm font-mono text-cyan-400 font-semibold pt-0.5 flex items-center gap-2">
                   <span>Backend AI Developer Intern</span>
                   <span className="text-slate-600">•</span>
                   <span>B.Tech CSE (AI & Robotics) @ VIT Chennai</span>
@@ -176,15 +180,15 @@ export default function ResumeModal({ isOpen, onClose }) {
               </div>
               <div className="text-[11px] font-mono text-slate-400 space-y-0.5 text-left sm:text-right">
                 <div className="flex items-center sm:justify-end gap-1.5 text-slate-300">
-                  <MapPin className="w-3.5 h-3.5 text-cyan-400 no-print" />
+                  <MapPin className="w-3 h-3 text-cyan-400 no-print" />
                   <span>Chittoor, AP / Chennai, TN, India</span>
                 </div>
                 <div className="flex items-center sm:justify-end gap-1.5 text-slate-300">
-                  <Mail className="w-3.5 h-3.5 text-cyan-400 no-print" />
+                  <Mail className="w-3 h-3 text-cyan-400 no-print" />
                   <span>kudimirohith@gmail.com</span>
                 </div>
                 <div className="flex items-center sm:justify-end gap-1.5 text-slate-300">
-                  <Phone className="w-3.5 h-3.5 text-cyan-400 no-print" />
+                  <Phone className="w-3 h-3 text-cyan-400 no-print" />
                   <span>+91 6301699119</span>
                 </div>
               </div>
@@ -198,7 +202,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 rel="noreferrer"
                 className="px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-cyan-300 hover:border-cyan-500/50 flex items-center gap-1.5 transition-colors"
               >
-                <GithubIcon className="w-3.5 h-3.5 text-cyan-400 no-print" />
+                <GithubIcon className="w-3 h-3 text-cyan-400 no-print" />
                 <span>github.com/kudimirohith-bit</span>
               </a>
               <a
@@ -207,7 +211,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 rel="noreferrer"
                 className="px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-indigo-300 hover:border-indigo-500/50 flex items-center gap-1.5 transition-colors"
               >
-                <LinkedinIcon className="w-3.5 h-3.5 text-indigo-400 no-print" />
+                <LinkedinIcon className="w-3 h-3 text-indigo-400 no-print" />
                 <span>linkedin.com/in/rohith-kudimi-29846431b</span>
               </a>
             </div>
@@ -215,43 +219,41 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Professional Summary */}
           <div className="space-y-1">
-            <h3 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
+            <h3 className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400 no-print" /> PROFESSIONAL SUMMARY
             </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Passionate Backend & AI Engineer and Computer Science (AI & Robotics) student at VIT Chennai (<strong className="text-slate-100 font-bold">CGPA: 8.57 / 10.0</strong>). Currently working as a Backend AI Developer Intern at <strong className="text-cyan-300">FlyRank AI</strong>, specializing in server infrastructure, clean API contract design, RAG pipeline architecture, and local LLM integrations.
+            <p className="text-xs text-slate-300 leading-normal">
+              Backend & AI Engineer Intern and Computer Science (AI & Robotics) student at VIT Chennai (<strong className="text-slate-100 font-bold">CGPA: 8.57 / 10.0</strong>). Currently at <strong className="text-cyan-300">FlyRank AI</strong>, specializing in scalable server infrastructure, RESTful API contract design, RAG pipeline architecture, and local LLM integrations (Ollama). Experienced in full-stack MERN engineering and Basic Robotics.
             </p>
           </div>
 
-          {/* Experience Section */}
+          {/* Work Experience Section */}
           <div className="space-y-2">
-            <h3 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
+            <h3 className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
               <Briefcase className="w-3.5 h-3.5 text-cyan-400 no-print" /> WORK EXPERIENCE
             </h3>
 
             <div className="space-y-2">
               {/* FlyRank */}
-              <div className="p-2.5 sm:p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-bold text-slate-100">
                   <span className="text-cyan-300">Backend AI Developer Intern — FlyRank AI</span>
-                  <span className="text-slate-400 font-mono text-[11px] font-normal">July 2026 – Present</span>
+                  <span className="text-slate-400 font-mono text-[10px] font-normal">July 2026 – Present</span>
                 </div>
                 <ul className="list-disc list-inside space-y-0.5 text-xs text-slate-300 leading-snug">
-                  <li>Architecting scalable server-side backend infrastructure for AI-driven applications using Node.js and Express.</li>
-                  <li>Designing robust API contracts, data processing pipelines, and structured JSON output parsers for local LLMs (Ollama).</li>
-                  <li>Building RAG (Retrieval-Augmented Generation) systems to optimize contextual document retrieval.</li>
+                  <li>Architecting scalable server infrastructure and strict API contracts for AI workflows in Node.js & Express.</li>
+                  <li>Implementing RAG (Retrieval-Augmented Generation) pipelines and structured JSON output verifiers for local LLMs.</li>
                 </ul>
               </div>
 
               {/* Vicharanashala IIT Ropar */}
-              <div className="p-2.5 sm:p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+              <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-bold text-slate-100">
                   <span className="text-indigo-300">Summer Intern — Vicharanashala (VLED, IIT Ropar)</span>
-                  <span className="text-slate-400 font-mono text-[11px] font-normal">May 2026 – Present</span>
+                  <span className="text-slate-400 font-mono text-[10px] font-normal">May 2026 – Present</span>
                 </div>
                 <ul className="list-disc list-inside space-y-0.5 text-xs text-slate-300 leading-snug">
-                  <li>Developed foundational numeracy educational web modules (FLN System) tailored for low-bandwidth devices.</li>
-                  <li>Collaborated on building modular React frontend interfaces and RESTful Node.js services.</li>
+                  <li>Developed FLN educational modules tailored for low-bandwidth devices using React and Node.js REST services.</li>
                 </ul>
               </div>
             </div>
@@ -259,11 +261,11 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Education Section */}
           <div className="space-y-1.5">
-            <h3 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
+            <h3 className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
               <GraduationCap className="w-3.5 h-3.5 text-cyan-400 no-print" /> EDUCATION
             </h3>
 
-            <div className="p-2.5 sm:p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs">
+            <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
               <div>
                 <div className="font-bold text-slate-100">Vellore Institute of Technology (VIT), Chennai</div>
                 <div className="text-slate-400 text-[11px]">B.Tech in Computer Science & Engineering (AI & Robotics)</div>
@@ -277,76 +279,74 @@ export default function ResumeModal({ isOpen, onClose }) {
 
           {/* Key Projects Section */}
           <div className="space-y-2">
-            <h3 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
+            <h3 className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
               <Code2 className="w-3.5 h-3.5 text-cyan-400 no-print" /> FEATURED PROJECTS
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-0.5">
-                <div className="font-bold text-cyan-300">VeriSumm — Biomedical Text Summarizer</div>
-                <p className="text-slate-300 text-[11px] leading-snug">
-                  Clinical EHR summarizer with sentence-level claim traceability & hallucination verification pipelines.
+                <div className="font-bold text-cyan-300 text-[11px]">VeriSumm — Biomedical Text Summarizer</div>
+                <p className="text-slate-300 text-[10.5px] leading-snug">
+                  EHR summarizer with sentence-level claim traceability & hallucination verifier.
                 </p>
-                <div className="text-[10px] font-mono text-slate-400 pt-0.5">TypeScript • React • Node.js • NLP</div>
+                <div className="text-[9.5px] font-mono text-slate-400">TypeScript • React • Node.js • NLP</div>
               </div>
 
               <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-0.5">
-                <div className="font-bold text-indigo-300">CareerOS — Career Management System</div>
-                <p className="text-slate-300 text-[11px] leading-snug">
-                  AI-powered job application tracker, interview pipeline, and resume optimization workspace.
+                <div className="font-bold text-indigo-300 text-[11px]">CareerOS — Career Management Platform</div>
+                <p className="text-slate-300 text-[10.5px] leading-snug">
+                  AI-powered application tracker, interview pipeline, and resume optimizer.
                 </p>
-                <div className="text-[10px] font-mono text-slate-400 pt-0.5">Node.js • Express • React • MongoDB</div>
+                <div className="text-[9.5px] font-mono text-slate-400">Node.js • Express • React • MongoDB</div>
               </div>
 
               <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-0.5">
-                <div className="font-bold text-emerald-300">SmartGap AI — CS Gap Diagnostic</div>
-                <p className="text-slate-300 text-[11px] leading-snug">
-                  Automated learning gap evaluation engine analyzing student knowledge across 5 core CS subjects.
+                <div className="font-bold text-emerald-300 text-[11px]">SmartGap AI — CS Gap Diagnostic</div>
+                <p className="text-slate-300 text-[10.5px] leading-snug">
+                  Evaluates student CS learning gaps across 5 core subjects with remediation analytics.
                 </p>
-                <div className="text-[10px] font-mono text-slate-400 pt-0.5">Node.js • Express • MongoDB • MERN</div>
+                <div className="text-[9.5px] font-mono text-slate-400">Node.js • Express • MongoDB • MERN</div>
               </div>
 
               <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-0.5">
-                <div className="font-bold text-amber-300">MarauderOS — Emergency Incident System</div>
-                <p className="text-slate-300 text-[11px] leading-snug">
-                  Real-time emergency dispatch logging and priority coordination platform for first responders.
+                <div className="font-bold text-amber-300 text-[11px]">MarauderOS — Incident System</div>
+                <p className="text-slate-300 text-[10.5px] leading-snug">
+                  Emergency dispatch logging & priority coordination platform for responders.
                 </p>
-                <div className="text-[10px] font-mono text-slate-400 pt-0.5">Node.js • Express • Socket.IO</div>
+                <div className="text-[9.5px] font-mono text-slate-400">Node.js • Express • Socket.IO</div>
               </div>
             </div>
           </div>
 
           {/* Honors & Certifications */}
           <div className="space-y-2">
-            <h3 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
+            <h3 className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 print-accent">
               <Award className="w-3.5 h-3.5 text-cyan-400 no-print" /> HONORS & CERTIFICATIONS
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <div className="p-2.5 rounded-xl bg-amber-950/40 border border-amber-800/60 space-y-0.5">
-                <div className="font-bold text-amber-300 flex items-center gap-1.5">
-                  <span>🥇 1st Prize Winner — Idea-thon</span>
-                </div>
-                <p className="text-slate-300 text-[11px] leading-snug">
-                  Awarded 1st Prize in "AI for Quality Education" by IQAC & SELECT during Quality Week 2026 (VIT Chennai).
+                <div className="font-bold text-amber-300 text-[11px]">🥇 1st Prize Winner — Idea-thon</div>
+                <p className="text-slate-300 text-[10.5px] leading-snug">
+                  1st Prize in "AI for Quality Education" by IQAC & SELECT (Quality Week 2026).
                 </p>
               </div>
 
               <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-0.5">
-                <div className="font-bold text-cyan-300">Google Cloud & IIT Bombay Certified</div>
-                <p className="text-slate-300 text-[11px] leading-snug">
-                  Certified in "The Basics of Google Cloud Compute" (VMs & Disks) and IIT Bombay Spoken Tutorials (C, C++, Python).
+                <div className="font-bold text-cyan-300 text-[11px]">Google Cloud & IIT Bombay Certified</div>
+                <p className="text-slate-300 text-[10.5px] leading-snug">
+                  Certified in "Google Cloud Compute Basics" (VMs/Disks) & IIT Bombay Spoken Tutorials.
                 </p>
               </div>
             </div>
           </div>
 
           {/* Technical Skills Summary */}
-          <div className="space-y-1.5 pt-1 border-t border-slate-800/80">
-            <h3 className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider print-accent">
+          <div className="space-y-1 pt-1 border-t border-slate-800/80">
+            <h3 className="text-[10.5px] font-mono font-bold text-slate-400 uppercase tracking-wider print-accent">
               TECHNICAL SKILLS SUMMARY
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px]">
               <div><strong className="text-slate-200">Languages:</strong> C++, Python, JavaScript (ES6+), Java, SQL</div>
               <div><strong className="text-slate-200">Frameworks:</strong> React.js, Node.js, Express.js, MERN Stack</div>
               <div><strong className="text-slate-200">Databases & Cloud:</strong> MongoDB, Mongoose, Google Cloud Compute</div>
