@@ -6,7 +6,115 @@ export default function ResumeModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handlePrint = () => {
-    window.print();
+    const resumeEl = document.getElementById('printable-resume');
+    if (!resumeEl) {
+      window.print();
+      return;
+    }
+
+    const printWin = window.open('', '_blank', 'width=900,height=1000');
+    if (!printWin) {
+      window.print();
+      return;
+    }
+
+    printWin.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Rohith_Kudimi_Resume</title>
+          <meta charset="utf-8" />
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap');
+            
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+              font-family: 'Inter', system-ui, -apple-system, sans-serif;
+              color: #0f172a;
+              background: #ffffff;
+              padding: 24px;
+              line-height: 1.45;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            .no-print { display: none !important; }
+            
+            h1 { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: #0284c7 !important; letter-spacing: -0.5px; margin-bottom: 4px; }
+            h2, h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13px; color: #0284c7 !important; letter-spacing: 0.05em; margin-bottom: 6px; margin-top: 14px; }
+            
+            .print-accent { color: #0284c7 !important; }
+            .text-cyan-400, .text-cyan-300, .text-indigo-400, .text-indigo-300, .text-emerald-400, .text-amber-300 { color: #0369a1 !important; }
+            .text-slate-100, .text-slate-200, .text-slate-300 { color: #0f172a !important; }
+            .text-slate-400, .text-slate-600 { color: #475569 !important; }
+            
+            .bg-slate-900, .bg-slate-950, .bg-slate-900\\/90, .bg-amber-950\\/40 {
+              background-color: #f8fafc !important;
+              border: 1px solid #e2e8f0 !important;
+            }
+            
+            .border, .border-b, .border-t, .border-slate-800 {
+              border-color: #cbd5e1 !important;
+            }
+
+            .flex { display: flex; }
+            .flex-col { flex-direction: column; }
+            .flex-wrap { flex-wrap: wrap; }
+            .items-center { align-items: center; }
+            .justify-between { justify-content: space-between; }
+            .gap-1 { gap: 4px; }
+            .gap-1\\.5 { gap: 6px; }
+            .gap-2 { gap: 8px; }
+            .gap-3 { gap: 12px; }
+            .space-y-1 > * + * { margin-top: 4px; }
+            .space-y-1\\.5 > * + * { margin-top: 6px; }
+            .space-y-2 > * + * { margin-top: 8px; }
+            .space-y-2\\.5 > * + * { margin-top: 10px; }
+            .space-y-3 > * + * { margin-top: 12px; }
+            .space-y-6 > * + * { margin-top: 18px; }
+            
+            .grid { display: grid; }
+            .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+            .grid-cols-2, .sm\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            
+            .rounded-xl, .rounded-2xl, .rounded-lg { border-radius: 6px; }
+            .p-3 { padding: 10px; }
+            .p-3\\.5 { padding: 12px; }
+            .p-6, .sm\\:p-9 { padding: 16px; }
+            .pb-5 { padding-bottom: 14px; margin-bottom: 12px; }
+            .pt-1 { padding-top: 4px; }
+            .pt-2 { padding-top: 8px; }
+            .font-mono { font-family: 'Fira Code', monospace; font-size: 11px; }
+            .text-xs { font-size: 11px; }
+            .text-sm { font-size: 12px; }
+            .text-\\[10px\\] { font-size: 10px; }
+            .text-\\[11px\\] { font-size: 10.5px; }
+            .font-bold { font-weight: 700; }
+            .font-semibold { font-weight: 600; }
+            .uppercase { text-transform: uppercase; }
+            .tracking-wider { letter-spacing: 0.05em; }
+            .list-disc { list-style-type: disc; padding-left: 16px; }
+            a { color: #0284c7 !important; text-decoration: none; }
+            
+            @page {
+              size: A4 portrait;
+              margin: 10mm;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="printable-resume">
+            ${resumeEl.innerHTML}
+          </div>
+        </body>
+      </html>
+    `);
+
+    printWin.document.close();
+    printWin.focus();
+    setTimeout(() => {
+      printWin.print();
+      printWin.close();
+    }, 250);
   };
 
   return (

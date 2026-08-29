@@ -388,43 +388,83 @@ section.section-slide-in-up {
 
 /* Printable Resume Styling Override */
 @media print {
-  body {
-    background: #ffffff !important;
-    color: #0f172a !important;
-  }
-  
-  nav, footer, button, #bg-still-image, #bg-dark-overlay, .no-print {
+  body > div:not(#printable-resume),
+  #root > div > nav,
+  #root > div > footer,
+  #root > div > main > *:not(.fixed),
+  #bg-still-image,
+  #bg-dark-overlay,
+  .no-print {
     display: none !important;
   }
 
-  .fixed.inset-0 {
-    position: static !important;
-    background: transparent !important;
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
     padding: 0 !important;
-    display: block !important;
   }
 
-  .bg-slate-900, .bg-slate-950 {
-    background: transparent !important;
+  .fixed.inset-0 {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+
+  .fixed.inset-0 > div {
     border: none !important;
     box-shadow: none !important;
-    color: #0f172a !important;
+    background: #ffffff !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   #printable-resume {
     background: #ffffff !important;
     color: #0f172a !important;
+    border: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    width: 100% !important;
+    box-shadow: none !important;
   }
 
   #printable-resume * {
     color: #0f172a !important;
+  }
+
+  #printable-resume .text-cyan-400,
+  #printable-resume .text-cyan-300,
+  #printable-resume .text-indigo-400,
+  #printable-resume .text-indigo-300,
+  #printable-resume .print-accent {
+    color: #0284c7 !important;
+  }
+
+  #printable-resume .bg-slate-900,
+  #printable-resume .bg-slate-950,
+  #printable-resume .bg-slate-900\/90,
+  #printable-resume .bg-amber-950\/40 {
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  #printable-resume .border,
+  #printable-resume .border-b,
+  #printable-resume .border-t {
     border-color: #cbd5e1 !important;
   }
 
-  #printable-resume .print-accent {
-    color: #0284c7 !important;
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
   }
 }
