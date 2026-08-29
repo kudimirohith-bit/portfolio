@@ -3,6 +3,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, ShieldCheck, CheckCircle2, ZoomIn, ZoomOut } from 'lucide-react';
 
 const CERTIFICATE_DATA = {
+  ideathon: {
+    title: 'Certificate of Appreciation — Idea-thon: AI for Quality Education',
+    issuer: 'Vellore Institute of Technology (VIT Chennai)',
+    badgeType: 'NATIONAL IDEA-THON • 1ST PRIZE WINNER',
+    images: [],
+    details: {
+      event: 'Idea-thon: AI for Quality Education',
+      organizers: 'Internal Quality Assurance Cell (IQAC) & School of Electrical Engineering (SELECT)',
+      dates: 'March 05 - 06, 2026',
+      context: 'Quality Week 2026 at VIT Chennai',
+      recipient: 'K. ROHITH',
+      signatories: 'Dr. S. Hemamalini (Director, RAAC) & Prof. T. Thyagarajan (Pro Vice Chancellor)'
+    },
+    verifyUrl: null,
+    accentColor: 'border-amber-400'
+  },
   gcp: {
     title: 'The Basics of Google Cloud Compute',
     issuer: 'Google Cloud Skills Boost',
@@ -120,7 +136,43 @@ export default function CertificateProofModal({ selectedCert, onClose }) {
           )}
 
           {/* Direct High-Resolution Picture Display Box */}
-          {currentImage ? (
+          {selectedCert === 'ideathon' ? (
+            <div className="relative rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-8 border border-amber-500/40 shadow-2xl space-y-6 text-center">
+              <div className="flex items-center justify-between border-b border-amber-500/20 pb-4">
+                <div className="text-left font-outfit">
+                  <div className="text-xs font-bold text-amber-400 tracking-wider">VIT CHENNAI</div>
+                  <div className="text-[10px] text-slate-400">Vellore Institute of Technology</div>
+                </div>
+                <div className="px-3 py-1 rounded-full bg-amber-950/80 border border-amber-500/50 text-amber-300 font-mono text-xs font-bold flex items-center gap-1.5">
+                  🥇 1ST PRIZE WINNER
+                </div>
+              </div>
+
+              <div className="space-y-3 max-w-2xl mx-auto py-2">
+                <h4 className="font-outfit text-xl sm:text-2xl font-black text-amber-200 uppercase tracking-wide">
+                  Certificate of Appreciation
+                </h4>
+                <p className="text-xs text-slate-400 italic">This is to certify that</p>
+                <div className="text-2xl font-outfit font-extrabold text-cyan-300 tracking-wider underline decoration-amber-400/60 underline-offset-8">
+                  K. ROHITH
+                </div>
+                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed pt-2">
+                  has won the <strong className="text-amber-300">I Prize in Idea-thon: AI for Quality Education</strong> organised by the <strong className="text-slate-100">Internal Quality Assurance Cell (IQAC)</strong> in association with the <strong className="text-slate-100">School of Electrical Engineering (SELECT)</strong> during <strong className="text-cyan-300">March 05 - 06, 2026</strong>, as part of <strong className="text-amber-300">Quality Week 2026</strong> at Vellore Institute of Technology, Chennai.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800 text-xs font-mono">
+                <div className="text-left space-y-1">
+                  <div className="text-slate-200 font-bold">Dr. S. Hemamalini</div>
+                  <div className="text-[10px] text-slate-400">Director, RAAC • VIT Chennai</div>
+                </div>
+                <div className="text-right space-y-1">
+                  <div className="text-slate-200 font-bold">Prof. T. Thyagarajan</div>
+                  <div className="text-[10px] text-slate-400">Pro Vice Chancellor • VIT Chennai</div>
+                </div>
+              </div>
+            </div>
+          ) : currentImage ? (
             <div
               className={`relative rounded-2xl bg-white p-2 sm:p-4 border border-slate-700 shadow-inner flex items-center justify-center overflow-auto max-h-[72vh] ${
                 isCgpaCert ? (isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in') : ''

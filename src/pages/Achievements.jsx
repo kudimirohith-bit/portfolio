@@ -27,9 +27,45 @@ export default function Achievements() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         
-        {/* Card 1: Google Cloud */}
+        {/* Card 1: Idea-thon Winner */}
+        <div
+          onClick={() => setSelectedCert('ideathon')}
+          className="group p-6 rounded-3xl bg-slate-900/60 border border-amber-500/40 backdrop-blur-md space-y-5 hover:border-amber-400 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col justify-between shadow-lg shadow-amber-500/10"
+        >
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="w-12 h-12 rounded-2xl bg-amber-950/80 border border-amber-800 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                <Award className="w-6 h-6" />
+              </div>
+              <span className="p-2 rounded-xl bg-slate-950 border border-slate-800 text-amber-400 opacity-80 group-hover:opacity-100 group-hover:bg-amber-950 transition-all">
+                <ArrowUpRight className="w-4 h-4" />
+              </span>
+            </div>
+            <div>
+              <span className="text-[10px] font-mono text-amber-400 uppercase tracking-wider font-bold">🥇 1st Prize Winner</span>
+              <h3 className="text-xl font-outfit font-bold text-slate-100 group-hover:text-amber-300 transition-colors">
+                Idea-thon: AI for Quality Education
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Awarded 1st Prize by IQAC & SELECT (VIT Chennai) during Quality Week 2026 for AI-driven education solutions.
+            </p>
+          </div>
+
+          <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs font-mono text-amber-300">
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-amber-400" />
+              Quality Week 2026
+            </span>
+            <span className="text-[10px] text-amber-400 font-bold group-hover:underline flex items-center gap-1">
+              Inspect Proof <ExternalLink className="w-3 h-3" />
+            </span>
+          </div>
+        </div>
+
+        {/* Card 2: Google Cloud */}
         <div
           onClick={() => setSelectedCert('gcp')}
           className="group p-6 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-md space-y-5 hover:border-cyan-400/80 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col justify-between shadow-lg"
@@ -65,7 +101,7 @@ export default function Achievements() {
           </div>
         </div>
 
-        {/* Card 2: IIT Bombay */}
+        {/* Card 3: IIT Bombay */}
         <div
           onClick={() => setSelectedCert('iitb')}
           className="group p-6 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-md space-y-5 hover:border-indigo-400/80 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col justify-between shadow-lg"
@@ -101,7 +137,7 @@ export default function Achievements() {
           </div>
         </div>
 
-        {/* Card 3: Academic Excellence */}
+        {/* Card 4: Academic Excellence */}
         <div
           onClick={() => setSelectedCert('vit')}
           className="group p-6 rounded-3xl bg-slate-900/60 border border-slate-800 backdrop-blur-md space-y-5 hover:border-emerald-400/80 transition-all duration-300 hover:scale-[1.02] cursor-pointer flex flex-col justify-between shadow-lg"
