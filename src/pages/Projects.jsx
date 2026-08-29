@@ -183,35 +183,35 @@ export default function Projects() {
 
         {/* ================= ROW 3 ================= */}
 
-        {/* Tile 5: Expense Tracker (6 Cols) */}
+        {/* Tile 5: CareerOS (6 Cols) */}
         <div
-          onClick={() => setActiveModalKey('expensetracker')}
+          onClick={() => setActiveModalKey('careeros')}
           className="col-span-12 lg:col-span-6 group relative rounded-2xl bg-slate-900/70 border border-slate-800/90 backdrop-blur-xl p-4 flex flex-col justify-between hover:border-purple-400/80 transition-all duration-300 cursor-pointer overflow-hidden shadow-lg hover:shadow-purple-500/15 hover:-translate-y-0.5"
         >
           <div className="space-y-2 z-10">
             <div className="flex items-center justify-between">
               <span className="px-2.5 py-0.5 rounded-full bg-purple-950/90 text-purple-300 text-[9px] font-mono font-bold border border-purple-500/60 flex items-center gap-1">
-                <Activity className="w-2.5 h-2.5 text-purple-400" /> ✅ COMPLETED
+                <Activity className="w-2.5 h-2.5 text-purple-400" /> ✅ FULLY FUNCTIONAL
               </span>
-              <span className="text-[9px] font-mono text-slate-400">FINANCIAL WEB APP</span>
+              <span className="text-[9px] font-mono text-slate-400 font-bold">CAREER SUITE</span>
             </div>
 
             <h3 className="text-base font-outfit font-bold text-slate-100 group-hover:text-purple-300 transition-colors">
-              Expense Tracker
+              CareerOS — Career Management System
             </h3>
 
             <p className="text-slate-300 text-xs font-mono leading-relaxed line-clamp-2">
-              Personal financial expense management app with categorized analytics & local storage.
+              AI-powered job application tracker, resume builder, and career progress analytics workspace.
             </p>
 
             <div className="flex flex-wrap gap-1 pt-1">
-              <span className="px-2 py-0.5 rounded bg-slate-950 text-purple-300 text-[9px] font-mono border border-slate-800">Categorized Analytics</span>
-              <span className="px-2 py-0.5 rounded bg-slate-950 text-slate-300 text-[9px] font-mono border border-slate-800">Local Persistence</span>
+              <span className="px-2 py-0.5 rounded bg-slate-950 text-purple-300 text-[9px] font-mono border border-slate-800">Job Pipeline Tracker</span>
+              <span className="px-2 py-0.5 rounded bg-slate-950 text-slate-300 text-[9px] font-mono border border-slate-800">Resume Optimization</span>
             </div>
           </div>
 
           <div className="z-10 pt-3 border-t border-slate-800/80 flex items-center justify-between mt-3">
-            <span className="text-[9px] font-mono text-slate-400">JavaScript (ES6+) • HTML5 • Local Storage</span>
+            <span className="text-[9px] font-mono text-slate-400">Node.js • Express • React • MongoDB</span>
             <span className="text-xs font-mono font-bold text-purple-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">
               Inspect <ArrowUpRight className="w-3.5 h-3.5" />
             </span>

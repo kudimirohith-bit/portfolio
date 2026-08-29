@@ -352,7 +352,7 @@ Databases & Cloud: <span class="text-amber-300 font-bold">MongoDB, Mongoose, Goo
 3. <span class="text-purple-400 font-bold">SmartGap AI</span> — CS Subject Learning Gap Diagnostic System
 4. <span class="text-emerald-400 font-bold">FLN Learning</span> — AI Foundational Numeracy Product
 5. <span class="text-amber-400 font-bold">MarauderOS</span> — Emergency Coordination Incident System
-6. <span class="text-sky-400 font-bold">Expense Tracker</span> — Financial Tracking Web App
+6. <span class="text-sky-400 font-bold">CareerOS</span> — Career Management & AI Progress Platform
 7. <span class="text-pink-400 font-bold">Simple Chat Server</span> — Multithreaded Java Network Socket Chat Server`,
 
     experience: `1. <span class="text-cyan-300 font-bold">FlyRank AI</span> — Backend AI Developer Intern (July 2026 - Present)

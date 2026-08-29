@@ -63,19 +63,20 @@ const PROJECT_DETAILS = {
     ],
     github: "https://github.com/kudimirohith-bit/marauderOS"
   },
-  expensetracker: {
-    statusBadge: "✅ COMPLETED",
+  careeros: {
+    statusBadge: "✅ FULLY FUNCTIONAL",
     statusColor: "bg-purple-950 text-purple-300 border-purple-500/50",
-    badge: "FINANCIAL WEB APPLICATION",
-    title: "Personal Finance & Expense Tracker",
-    singleLineDesc: "Personal financial expense management app with categorized analytics & local storage.",
-    stack: ["JavaScript (ES6+)", "HTML5", "CSS3", "Local Storage Persistence"],
-    overview: "A clean, responsive financial management web application for tracking income, categorized expenses, and budget insights with zero external backend dependencies.",
+    badge: "CAREER MANAGEMENT & AI SUITE",
+    title: "CareerOS — Career Management Platform",
+    singleLineDesc: "AI-powered job application tracker, resume builder, and career progress workspace.",
+    stack: ["Node.js", "Express.js", "React.js", "MongoDB", "MERN Stack"],
+    overview: "CareerOS is a comprehensive career workspace built for tracking job applications, managing interview stages, analyzing skill gaps, and optimizing career progression workflows with AI insights.",
     highlights: [
-      "Categorized transaction breakdown with visual summaries.",
-      "Local storage persistence and dynamic financial calculations."
+      "Structured job application status pipeline with real-time updates.",
+      "Skill gap detection and AI-assisted resume optimization.",
+      "Clean MERN stack architecture with secure RESTful endpoints."
     ],
-    github: "https://github.com/kudimirohith-bit/Expense_tracker"
+    github: "https://github.com/kudimirohith-bit/CareerOS"
   },
   chatserver: {
     statusBadge: "✅ COMPLETED",
